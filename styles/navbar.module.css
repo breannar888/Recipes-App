@@ -1,0 +1,18 @@
+.navwrap {
+    border-bottom: 2px solid #E38127;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 .2em 0 .2em;
+}
+.logowrap {
+    margin: auto 0 auto 0;
+}
+.nav {
+    width: 30%;
+}
+.nav ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: space-around;
+}
