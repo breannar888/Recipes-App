@@ -1,0 +1,94 @@
+.recipewrapper {
+  margin: 3% 10% 5% 10%;
+}
+.topcontainer {
+  border-bottom: 2px solid #a2c5ac;
+  padding-bottom: 30px;
+  margin-bottom: 30px;
+}
+.title {
+  display: flex;
+  justify-content: space-between;
+}
+.title h1 {
+  font-size: 50px;
+  margin: 0;
+  padding: 0;
+}
+.fav {
+  margin: auto 0 auto 0;
+  font-size: 30px;
+}
+.description {
+  font-size: 20px;
+  color: #6c6c6c;
+  margin-top: 5px;
+}
+.profileinfo {
+  display: flex;
+  color: #6c6c6c;
+}
+.profileinfo img {
+  max-width: 51px;
+  border-radius: 38px;
+}
+.info {
+  margin-left: 2%;
+}
+.info span {
+  color: #ffc700;
+}
+.bottomcontainer {
+  display: grid;
+  grid-template-columns: 1.3fr 2fr;
+  grid-auto-rows: minmax(100px, auto);
+  grid-gap: 25px;
+}
+.bottomcontainer img {
+  width: 100%;
+  max-width: 550px;
+  max-height: 550px;
+  grid-column: 1/2;
+}
+.recipeimg {
+  margin: auto;
+}
+.recipeinfo {
+  grid-column: 2/2;
+  grid-row: 1/2;
+}
+.recipeinfo ul {
+  list-style: none;
+  border-bottom: 2px dashed #e38127;
+  padding-bottom: 20px;
+  padding-left: 0;
+}
+.recipeinfo ul li {
+  border-bottom: 1px solid #a2c5ac;
+}
+.recipeinfo ol {
+  padding-left: 15px;
+}
+.recipeinfo ol li {
+  border-bottom: 1px solid #a2c5ac;
+}
+.nutrition {
+  grid-row: 2/2;
+  border: 3px solid #a2c5ac;
+}
+.nuttitle {
+  color: #a2c5ac;
+}
+.nuttitle span {
+  color: black;
+}
+.nutdata {
+  display: flex;
+  justify-content: space-between;
+}
+.nutdata div p {
+  padding: 0;
+  margin: 0;
+  text-align: center;
+  color: #a2c5ac;
+}

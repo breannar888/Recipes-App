@@ -6,11 +6,13 @@ import {
   CardContent,
   CardActions,
   IconButton,
+  Box,
 } from "@mui/material";
 import Favoritelogo from "../public/iconComponents/favoritelogo";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { styled } from "@mui/system";
+import Link from "next/link";
 
 const RecipeCard = ({ recipe }) => {
   const [isFav, setisFav] = useState(false);
@@ -24,6 +26,13 @@ const RecipeCard = ({ recipe }) => {
     maxWidth: 300,
     maxHeight: 340,
     borderRadius: 0,
+  });
+
+  const StyleBox = styled(Box)({
+    borderBottom: "2px solid transparent",
+    borderRight: "2px solid transparent",
+    maxWidth: 300,
+    maxHeight: 350,
     "&:hover": {
       borderBottom: "2px solid #FFC700",
       borderRight: "2px solid #FFC700",
@@ -31,16 +40,26 @@ const RecipeCard = ({ recipe }) => {
   });
 
   return (
-    <div>
+    <StyleBox>
       <StyleCard key={recipe.id}>
-        <CardMedia
-          component="img"
-          height="194"
-          image={recipe.image}
-          alt={recipe.name}
-        ></CardMedia>
+        <Link href={"/recipes/" + recipe.id} key={recipe.id}>
+          <CardMedia
+            sx={{ cursor: "pointer" }}
+            component="img"
+            height="194"
+            image={recipe.image}
+            alt={recipe.name}
+          ></CardMedia>
+        </Link>
         <CardContent>
-          <Typography variant="h6">{recipe.name}</Typography>
+          <Link href={"/recipes/" + recipe.id} key={recipe.id}>
+            <Typography
+              sx={{ width: "fit-content", cursor: "pointer" }}
+              variant="h6"
+            >
+              {recipe.name}
+            </Typography>
+          </Link>
           <Typography variant="caption">{recipe.description}</Typography>
         </CardContent>
         <CardActions sx={{ justifyContent: "space-between" }}>
@@ -54,7 +73,7 @@ const RecipeCard = ({ recipe }) => {
           <Typography>{recipe.cooktime}</Typography>
         </CardActions>
       </StyleCard>
-    </div>
+    </StyleBox>
   );
 };
 
