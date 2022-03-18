@@ -54,7 +54,13 @@ const RecipeCard = ({ recipe }) => {
         <CardContent>
           <Link href={"/recipes/" + recipe.id} key={recipe.id}>
             <Typography
-              sx={{ width: "fit-content", cursor: "pointer" }}
+              sx={{
+                width: "fit-content",
+                cursor: "pointer",
+                "&:active": {
+                  color: "#6C6C6C",
+                },
+              }}
               variant="h6"
             >
               {recipe.name}

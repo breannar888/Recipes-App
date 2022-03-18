@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "../styles/navbar.module.css";
 import Lemonlogo from "../public/iconComponents/lemonlogo";
 import Link from "next/dist/client/link";
 import { Button, IconButton } from "@mui/material";
 import { styled } from "@mui/styles";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import Signup from "./Signup";
 
 const StyledBtn = styled(Button)({
   borderRadius: 40,
@@ -17,6 +18,7 @@ const NavFavIcon = styled(FavoriteIcon)({
 });
 
 const Navbar = () => {
+  const [showModal, setShowModal] = useState(false);
   return (
     <div className={styles.navwrap}>
       <div className={styles.logowrap}>
@@ -34,14 +36,18 @@ const Navbar = () => {
             </IconButton>
           </li>
           <li>
-            <Link href="/" passHref>
-              <StyledBtn variant="contained" disableElevation color="primary">
-                Login
-              </StyledBtn>
-            </Link>
+            <StyledBtn
+              onClick={() => setShowModal(true)}
+              variant="contained"
+              disableElevation
+              color="primary"
+            >
+              Login
+            </StyledBtn>
+            <Signup onClose={() => setShowModal(false)} show={showModal} />
           </li>
           <li>
-            <Link href="/recipe" passHref>
+            <Link href="/addrecipe" passHref>
               <StyledBtn variant="contained" disableElevation color="primary">
                 Add Recipes
               </StyledBtn>
