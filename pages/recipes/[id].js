@@ -6,7 +6,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 
 const RecipePage = ({ recipe }) => {
-  const { name, description, ingredients, image, instructions } = recipe;
+  const { name, description, ingredients, image, instructions, calories, protien, carbs, fat } = recipe;
 
   return (
     <div className={style.recipewrapper}>
@@ -36,19 +36,19 @@ const RecipePage = ({ recipe }) => {
           </legend>
           <div className={style.nutdata}>
             <div>
-              <p>0</p>
+              <p>{calories}</p>
               Calories
             </div>
             <div>
-              <p>0</p>
+              <p>{protien}</p>
               Protien
             </div>
             <div>
-              <p>0</p>
+              <p>{carbs}</p>
               Carbs
             </div>
             <div>
-              <p>0</p>
+              <p>{fat}</p>
               Fat
             </div>
           </div>
