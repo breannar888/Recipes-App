@@ -5,7 +5,7 @@ import Link from "next/dist/client/link";
 import { Button, IconButton } from "@mui/material";
 import { styled } from "@mui/styles";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import Signup from "./Signup";
+import useAuth from "../contexts/AuthContext";
 
 const StyledBtn = styled(Button)({
   borderRadius: 40,
@@ -18,7 +18,8 @@ const NavFavIcon = styled(FavoriteIcon)({
 });
 
 const Navbar = () => {
-  const [showModal, setShowModal] = useState(false);
+  const { currentUser } = useAuth();
+
   return (
     <div className={styles.navwrap}>
       <div className={styles.logowrap}>
@@ -36,18 +37,20 @@ const Navbar = () => {
             </IconButton>
           </li>
           <li>
-            <StyledBtn
-              onClick={() => setShowModal(true)}
-              variant="contained"
-              disableElevation
-              color="primary"
-            >
-              Login
-            </StyledBtn>
-            <Signup onClose={() => setShowModal(false)} show={showModal} />
+            {currentUser ? (
+              <Link href="profiles" passHref>
+                <img className={styles.profile} src={currentUser.photoURL} />
+              </Link>
+            ) : (
+              <Link href="login" passHref>
+                <StyledBtn variant="contained" disableElevation color="primary">
+                  Login
+                </StyledBtn>
+              </Link>
+            )}
           </li>
           <li>
-            <Link href="/addrecipe" passHref>
+            <Link href="addrecipe" passHref>
               <StyledBtn variant="contained" disableElevation color="primary">
                 Add Recipes
               </StyledBtn>
