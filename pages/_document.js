@@ -14,12 +14,12 @@ export default class MyDocument extends Document {
             href="https://fonts.googleapis.com/css2?family=Reem+Kufi&display=swap"
             rel="stylesheet"
           />
+          <link rel="icon" href="/lemon-solid.ico" />
           {this.props.emotionStyleTags}
         </Head>
         <body>
           <Main />
           <NextScript />
-          <div id="modal-root"></div>
         </body>
       </Html>
     );
