@@ -4,9 +4,22 @@ import { db } from "../../utils/firebase-config";
 import style from "../../styles/recipes.module.css";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import useAuth from "../../contexts/AuthContext";
 
 const RecipePage = ({ recipe }) => {
-  const { name, description, ingredients, image, instructions, calories, protien, carbs, fat } = recipe;
+  const {
+    name,
+    description,
+    ingredients,
+    image,
+    instructions,
+    calories,
+    protien,
+    carbs,
+    fat,
+  } = recipe;
+
+  const { currentUser } = useAuth();
 
   return (
     <div className={style.recipewrapper}>
@@ -21,7 +34,7 @@ const RecipePage = ({ recipe }) => {
         <div className={style.profileinfo}>
           <img src={image} alt={name} />
           <div className={style.info}>
-            <span>Profile Name</span>
+            <span>{`The current user is: ${currentUser?.email}`}</span>
             <div>Recipe Updated Date</div>
           </div>
         </div>

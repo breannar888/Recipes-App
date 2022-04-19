@@ -6,7 +6,6 @@ const FavsIcon = styled(FavoriteBorderIcon)({
   color: "#E38127",
 });
 
-
 function FavIcon() {
   return {
     isFavorite: {
