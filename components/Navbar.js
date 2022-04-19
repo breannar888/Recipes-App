@@ -20,6 +20,14 @@ const NavFavIcon = styled(FavoriteIcon)({
 const Navbar = () => {
   const { currentUser } = useAuth();
 
+  const profilePic = "/placeholder-profile.jpg";
+
+  if (currentUser?.photoURL) {
+    profilePic = currentUser.photoURL;
+  } else {
+    profilePic = "/placeholder-profile.jpg";
+  }
+
   return (
     <div className={styles.navwrap}>
       <div className={styles.logowrap}>
@@ -38,11 +46,11 @@ const Navbar = () => {
           </li>
           <li>
             {currentUser ? (
-              <Link href="profiles" passHref>
-                <img className={styles.profile} src={currentUser.photoURL} />
+              <Link href="/profiles" passHref>
+                <img className={styles.profile} src={profilePic} />
               </Link>
             ) : (
-              <Link href="login" passHref>
+              <Link href="/login" passHref>
                 <StyledBtn variant="contained" disableElevation color="primary">
                   Login
                 </StyledBtn>
@@ -50,7 +58,7 @@ const Navbar = () => {
             )}
           </li>
           <li>
-            <Link href="addrecipe" passHref>
+            <Link href="/addrecipe" passHref>
               <StyledBtn variant="contained" disableElevation color="primary">
                 Add Recipes
               </StyledBtn>
