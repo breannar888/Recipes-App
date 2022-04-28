@@ -68,8 +68,8 @@ const SignupForm = () => {
         emailRef.current.value,
         passwordRef.current.value
       );
-    } catch {
-      alert("Signup form error");
+    } catch (err) {
+      alert(err.message);
     }
     setLoading(false);
   }
@@ -101,7 +101,7 @@ const SignupForm = () => {
           <Box sx={{ display: "flex", flexDirection: "column" }}>
             <div className={style.Textfieldnoborder}>
               <FormTextField
-                inputprop={{ ref: nameRef }}
+                inputRef={nameRef}
                 label="Username:"
                 id="name-input"
                 name="username"
@@ -110,13 +110,13 @@ const SignupForm = () => {
                 {...register("username")}
                 error={errors.username ? true : false}
               />
-              <ErrorMessage variant="inherit" color="textSecondary">
+              <ErrorMessage variant="inherit" color="red">
                 {errors.username?.message}
               </ErrorMessage>
             </div>
             <div className={style.Textfieldnoborder}>
               <FormTextField
-                inputprop={{ ref: emailRef }}
+                inputRef={emailRef}
                 label="Email Address:"
                 id="email-input"
                 name="email"
@@ -125,13 +125,13 @@ const SignupForm = () => {
                 {...register("email")}
                 error={errors.email ? true : false}
               />
-              <ErrorMessage variant="inherit" color="textSecondary">
+              <ErrorMessage variant="inherit" color="red">
                 {errors.email?.message}
               </ErrorMessage>
             </div>
             <div className={style.Textfieldnoborder}>
               <FormTextField
-                inputprop={{ ref: passwordRef }}
+                inputRef={passwordRef}
                 label="Password:"
                 id="password-input"
                 name="password"
@@ -140,12 +140,12 @@ const SignupForm = () => {
                 {...register("password")}
                 error={errors.password ? true : false}
               />
-              <ErrorMessage variant="inherit" color="textSecondary">
+              <ErrorMessage variant="inherit" color="red">
                 {errors.password?.message}
               </ErrorMessage>
             </div>
             <FormButton
-              onClick={handleSubmit(handleSignup())}
+              onClick={handleSubmit(handleSignup)}
               disabled={loading}
               variant="contained"
             >

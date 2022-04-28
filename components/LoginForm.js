@@ -77,8 +77,8 @@ const LoginForm = () => {
     setLoading(true);
     try {
       await login(emailRef.current.value, passwordRef.current.value);
-    } catch (error) {
-      alert("error");
+    } catch (err) {
+      alert(err.message);
     }
     setLoading(false);
   }
@@ -111,7 +111,7 @@ const LoginForm = () => {
           <FormControl>
             <div className={style.Textfieldnoborder}>
               <FormTextField
-                inputProps={{ ref: emailRef }}
+                inputProps={emailRef}
                 name="email"
                 type="text"
                 variant="outlined"
@@ -125,7 +125,7 @@ const LoginForm = () => {
             </div>
             <div className={style.Textfieldnoborder}>
               <FormTextField
-                inputProps={{ ref: passwordRef }}
+                inputProps={passwordRef}
                 name="password"
                 type="password"
                 variant="outlined"
@@ -141,7 +141,7 @@ const LoginForm = () => {
               <ForgotPassword>Forgot Password?</ForgotPassword>
             </div>
             <FormButton
-              onClick={handleSubmit(handleLogin())}
+              onClick={handleSubmit(handleLogin)}
               type="submit"
               variant="contained"
             >
