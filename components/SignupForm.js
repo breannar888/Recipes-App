@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React from "react";
 import { Card, Button, Box, TextField, Typography } from "@mui/material";
 import style from "../styles/login.module.css";
 import { styled } from "@mui/system";
@@ -48,10 +48,6 @@ const ErrorMessage = styled(Typography)({
 const SignupForm = () => {
   const { loading, setLoading } = useAuth();
 
-  const emailRef = useRef();
-  const passwordRef = useRef();
-  const nameRef = useRef();
-
   const {
     register,
     handleSubmit,
@@ -60,14 +56,11 @@ const SignupForm = () => {
     resolver: yupResolver(validationSchema),
   });
 
-  async function handleSignup() {
+  async function handleSignup(data) {
+    console.log(data);
     setLoading(true);
     try {
-      await signup(
-        nameRef.current.value,
-        emailRef.current.value,
-        passwordRef.current.value
-      );
+      await signup(data.username, data.email, data.password);
     } catch (err) {
       alert(err.message);
     }
@@ -101,7 +94,6 @@ const SignupForm = () => {
           <Box sx={{ display: "flex", flexDirection: "column" }}>
             <div className={style.Textfieldnoborder}>
               <FormTextField
-                inputRef={nameRef}
                 label="Username:"
                 id="name-input"
                 name="username"
@@ -116,7 +108,6 @@ const SignupForm = () => {
             </div>
             <div className={style.Textfieldnoborder}>
               <FormTextField
-                inputRef={emailRef}
                 label="Email Address:"
                 id="email-input"
                 name="email"
@@ -131,7 +122,6 @@ const SignupForm = () => {
             </div>
             <div className={style.Textfieldnoborder}>
               <FormTextField
-                inputRef={passwordRef}
                 label="Password:"
                 id="password-input"
                 name="password"
