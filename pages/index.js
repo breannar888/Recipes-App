@@ -18,7 +18,7 @@ export default function Home() {
     getRecipe();
   }, []);
 
-  console.log(recipe);
+  console.log("Recipes:", recipe);
   const { currentUser } = useAuth();
   return (
     <>
