@@ -1,20 +1,14 @@
-import React, { useRef, useState } from "react";
-import {
-  Card,
-  Button,
-  FormControl,
-  TextField,
-  Box,
-  Typography,
-} from "@mui/material";
+import React from "react";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
 import style from "../styles/login.module.css";
 import { styled } from "@mui/system";
 import Link from "next/link";
 import { login } from "../utils/firebase-config";
 import useAuth from "../contexts/AuthContext";
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import validationSchema from "./FormValidation";
+import * as Yup from "yup";
+
+import { Card, Box, TextField, Typography, Button } from "@mui/material";
 
 const FormTextField = styled(TextField)({
   marginBottom: "8px",
@@ -39,6 +33,7 @@ const FormButton = styled(Button)({
   borderRadius: "42px",
   backgroundColor: "#FFC700",
   marginBottom: "10px",
+  width: "100%",
   "&:hover": {
     backgroundColor: "#D6A700",
   },
@@ -60,10 +55,15 @@ const ErrorMessage = styled(Typography)({
 });
 
 const LoginForm = () => {
-  const { setLoading } = useAuth();
+  const { loading, setLoading } = useAuth();
 
-  const emailRef = useRef();
-  const passwordRef = useRef();
+  const validationSchema = Yup.object().shape({
+    email: Yup.string().required("Email is required").email("Email is invalid"),
+    password: Yup.string()
+      .required("Password is required")
+      .min(6, "Password must be at least 6 characters")
+      .max(40, "Password must not exceed 40 characters"),
+  });
 
   const {
     register,
@@ -73,15 +73,20 @@ const LoginForm = () => {
     resolver: yupResolver(validationSchema),
   });
 
-  async function handleLogin() {
+  async function handleLogin(data) {
+    console.log("login", data);
     setLoading(true);
     try {
-      await login(emailRef.current.value, passwordRef.current.value);
+      await login(data.email, data.password);
     } catch (err) {
       alert(err.message);
     }
     setLoading(false);
   }
+
+  const onSubmit = (data) => {
+    console.log(data);
+  };
 
   return (
     <Card>
@@ -108,41 +113,38 @@ const LoginForm = () => {
           Login
         </Typography>
         <Box>
-          <FormControl>
-            <div className={style.Textfieldnoborder}>
-              <FormTextField
-                inputProps={emailRef}
-                name="email"
-                type="text"
-                variant="outlined"
-                label="Email Address:"
-                {...register("email")}
-                error={errors.email ? true : false}
-              />
-              <ErrorMessage variant="inherit" color="textSecondary">
-                {errors.email?.message}
-              </ErrorMessage>
-            </div>
-            <div className={style.Textfieldnoborder}>
-              <FormTextField
-                inputProps={passwordRef}
-                name="password"
-                type="password"
-                variant="outlined"
-                label="Password:"
-                {...register("password")}
-                error={errors.password ? true : false}
-              />
-            </div>
-            <ErrorMessage variant="inherit" color="textSecondary">
+          <div className={style.Textfieldnoborder}>
+            <FormTextField
+              id="email"
+              name="email"
+              label="Email:"
+              {...register("email")}
+              error={errors.email ? true : false}
+            />
+            <Typography variant="inherit" color="textSecondary">
+              {errors.email?.message}
+            </Typography>
+          </div>
+          <div className={style.Textfieldnoborder}>
+            <FormTextField
+              id="password"
+              name="password"
+              label="Password:"
+              type="password"
+              {...register("password")}
+              error={errors.password ? true : false}
+            />
+            <Typography variant="inherit" color="textSecondary">
               {errors.password?.message}
-            </ErrorMessage>
-            <div>
-              <ForgotPassword>Forgot Password?</ForgotPassword>
-            </div>
+            </Typography>
+          </div>
+          <div>
+            <ForgotPassword>Forgot Password?</ForgotPassword>
+          </div>
+          <Box>
             <FormButton
               onClick={handleSubmit(handleLogin)}
-              type="submit"
+              disabled={loading}
               variant="contained"
             >
               Login
@@ -156,7 +158,7 @@ const LoginForm = () => {
                 <LoginBtn>Sign Up!</LoginBtn>
               </Link>
             </Box>
-          </FormControl>
+          </Box>
         </Box>
       </Box>
     </Card>

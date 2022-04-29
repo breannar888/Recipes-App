@@ -7,7 +7,7 @@ import { signup } from "../utils/firebase-config";
 import useAuth from "../contexts/AuthContext";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import validationSchema from "./FormValidation";
+import * as Yup from "yup";
 
 const FormTextField = styled(TextField)({
   marginBottom: "8px",
@@ -48,6 +48,18 @@ const ErrorMessage = styled(Typography)({
 const SignupForm = () => {
   const { loading, setLoading } = useAuth();
 
+  const validationSchema = Yup.object().shape({
+    username: Yup.string()
+      .required("Username is required")
+      .min(5, "Username must be at least 5 characters")
+      .max(20, "Username must not exceed 20 characters"),
+    email: Yup.string().required("Email is required").email("Email is invalid"),
+    password: Yup.string()
+      .required("Password is required")
+      .min(6, "Password must be at least 6 characters")
+      .max(40, "Password must not exceed 40 characters"),
+  });
+
   const {
     register,
     handleSubmit,
@@ -57,7 +69,6 @@ const SignupForm = () => {
   });
 
   async function handleSignup(data) {
-    console.log(data);
     setLoading(true);
     try {
       await signup(data.username, data.email, data.password);
@@ -135,7 +146,10 @@ const SignupForm = () => {
               </ErrorMessage>
             </div>
             <FormButton
-              onClick={handleSubmit(handleSignup)}
+              onClick={() => {
+                console.log(handleSubmit.data);
+                handleSubmit(handleSignup);
+              }}
               disabled={loading}
               variant="contained"
             >
