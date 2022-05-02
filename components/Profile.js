@@ -1,19 +1,16 @@
 import React, { useEffect, useState } from "react";
 import useAuth from "../contexts/AuthContext";
-import ProfileNav from "./ProfileNav";
 import style from "../styles/profile.module.css";
 import { Button } from "@mui/material";
 import Link from "next/dist/client/link";
 
 const Profile = () => {
-  const { currentUser } = useAuth();
-  console.log(currentUser);
+  const { currentUser, usersInfo } = useAuth();
 
-  if (currentUser) {
-
+  if (usersInfo) {
     const profilePic = "/placeholder-profile.jpg";
 
-    if (currentUser?.photoURL) {
+    if (usersInfo?.photoURL) {
       profilePic = currentUser.photoURL;
     } else {
       profilePic = "/placeholder-profile.jpg";
@@ -29,17 +26,18 @@ const Profile = () => {
               alt="No Photo"
             />
           </div>
-          <div className={style.profileInfo}>
-            <div className={style.profileText}>Email: {currentUser.email}</div>
-            <div className={style.profileText}>
-              Name:
-              {currentUser.displayName ? (
-                currentUser.displayName
-              ) : (
-                <span>no username</span>
-              )}
+
+          {usersInfo.map((info, i) => (
+            <div key={0} className={style.profileInfo}>
+              <div key={1} className={style.profileText}>
+                Email: {info.email}
+              </div>
+              <div key={2} className={style.profileText}>
+                Name: {info.name ? info.name : <span> no username </span>}
+              </div>
             </div>
-          </div>
+          ))}
+
           <div>
             <Link href="profiles/edit" passHref>
               <Button

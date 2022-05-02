@@ -84,10 +84,6 @@ const LoginForm = () => {
     setLoading(false);
   }
 
-  const onSubmit = (data) => {
-    console.log(data);
-  };
-
   return (
     <Card>
       <Box
@@ -121,9 +117,9 @@ const LoginForm = () => {
               {...register("email")}
               error={errors.email ? true : false}
             />
-            <Typography variant="inherit" color="textSecondary">
+            <ErrorMessage variant="inherit" color="textSecondary">
               {errors.email?.message}
-            </Typography>
+            </ErrorMessage>
           </div>
           <div className={style.Textfieldnoborder}>
             <FormTextField
@@ -134,9 +130,9 @@ const LoginForm = () => {
               {...register("password")}
               error={errors.password ? true : false}
             />
-            <Typography variant="inherit" color="textSecondary">
+            <ErrorMessage variant="inherit" color="textSecondary">
               {errors.password?.message}
-            </Typography>
+            </ErrorMessage>
           </div>
           <div>
             <ForgotPassword>Forgot Password?</ForgotPassword>

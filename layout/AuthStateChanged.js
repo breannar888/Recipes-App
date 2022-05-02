@@ -1,19 +1,42 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import useAuth from "../contexts/AuthContext";
-import firebase from "firebase/app";
 import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "../utils/firebase-config";
+import { db, auth } from "../utils/firebase-config";
+import { collection, onSnapshot, query, where } from "firebase/firestore";
 
 export default function AuthStateChanged({ children }) {
-  const { setCurrentuser, loading, setLoading } = useAuth();
+  const {
+    setCurrentuser,
+    loading,
+    setLoading,
+    currentUser,
+    usersInfo,
+    setUsersInfo,
+  } = useAuth();
 
   useEffect(() => {
-    const unsub = onAuthStateChanged(auth, (user) => {
+    onAuthStateChanged(auth, (user) => {
       setCurrentuser(user);
       setLoading(false);
+      if (currentUser) {
+        const q = query(
+          collection(db, "users"),
+          where("uid", "==", currentUser.uid)
+        );
+
+        const unsub = onSnapshot(q, (snapshot) => {
+          const userInfo = [];
+          snapshot.forEach((doc) => {
+            userInfo.push(doc.data());
+          });
+          console.log(userInfo);
+          setUsersInfo(userInfo);
+        });
+        console.log("user info", usersInfo);
+        return unsub;
+      }
     });
-    return unsub;
-  }, []);
+  }, [currentUser]);
 
   if (loading) {
     return <h3>Loading...</h3>;

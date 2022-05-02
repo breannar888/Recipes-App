@@ -5,12 +5,15 @@ const AuthContext = createContext();
 export function AuthProvider({ children }) {
   const [currentUser, setCurrentuser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [usersInfo, setUsersInfo] = useState();
 
   const value = {
     currentUser,
     setCurrentuser,
-    loading, 
+    loading,
     setLoading,
+    usersInfo,
+    setUsersInfo,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

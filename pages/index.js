@@ -10,6 +10,7 @@ import useAuth from "../contexts/AuthContext";
 export default function Home() {
   const [recipe, setRecipe] = useState([]);
   const recipeCollectionRef = collection(db, "recipes");
+  
   useEffect(() => {
     const getRecipe = async () => {
       const data = await getDocs(recipeCollectionRef);
@@ -19,7 +20,7 @@ export default function Home() {
   }, []);
 
   console.log("Recipes:", recipe);
-  const { currentUser } = useAuth();
+
   return (
     <>
       <div className={styles.container}>
@@ -28,7 +29,6 @@ export default function Home() {
         </Head>
         <main className={styles.main}>
           <h1>Home</h1>
-          <h3>{`The current user is: ${currentUser?.email}`}</h3>
           <Grid
             container
             spacing={4}
