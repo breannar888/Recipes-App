@@ -1,49 +1,19 @@
 import React from "react";
-import { Card, Button, Box, TextField, Typography } from "@mui/material";
-import style from "../styles/login.module.css";
 import { styled } from "@mui/system";
+import style from "../styles/login.module.css";
 import Link from "next/link";
 import { signup } from "../utils/firebase-config";
 import useAuth from "../contexts/AuthContext";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
-
-const FormTextField = styled(TextField)({
-  marginBottom: "8px",
-  marginTop: "5px",
-  "& .MuiOutlinedInput-root": {
-    "& fieldset": {
-      borderColor: "#A2C5AC",
-    },
-    "&.Mui-focused fieldset": {
-      borderColor: "#A2C5AC",
-    },
-    "&:hover fieldset": {
-      border: "2px solid #A2C5AC",
-    },
-  },
-  "& label.Mui-focused": {
-    color: "#5E5E5E",
-  },
-});
-
-const FormButton = styled(Button)({
-  borderRadius: "42px",
-  backgroundColor: "#A2C5AC",
-  marginBottom: "10px",
-});
-
-const SignUpBtn = styled(Button)({
-  padding: 0,
-  textTransform: "none",
-  textDecoration: "underline",
-  color: "#FFC700",
-});
-
-const ErrorMessage = styled(Typography)({
-  maxWidth: "250px",
-});
+import { Card, Box } from "@mui/material";
+import {
+  PrimaryTextField,
+  FormButton,
+  SignUpBtn,
+  ErrorMessage,
+} from "./muiStyledComponents/styledComponents";
 
 const SignupForm = () => {
   const { loading, setLoading } = useAuth();
@@ -104,7 +74,7 @@ const SignupForm = () => {
         <Box>
           <Box sx={{ display: "flex", flexDirection: "column" }}>
             <div className={style.Textfieldnoborder}>
-              <FormTextField
+              <PrimaryTextField
                 label="Username:"
                 id="name-input"
                 name="username"
@@ -118,7 +88,7 @@ const SignupForm = () => {
               </ErrorMessage>
             </div>
             <div className={style.Textfieldnoborder}>
-              <FormTextField
+              <PrimaryTextField
                 label="Email Address:"
                 id="email-input"
                 name="email"
@@ -132,7 +102,7 @@ const SignupForm = () => {
               </ErrorMessage>
             </div>
             <div className={style.Textfieldnoborder}>
-              <FormTextField
+              <PrimaryTextField
                 label="Password:"
                 id="password-input"
                 name="password"
@@ -152,6 +122,7 @@ const SignupForm = () => {
               }}
               disabled={loading}
               variant="contained"
+              color="primary"
             >
               Sign Up
             </FormButton>

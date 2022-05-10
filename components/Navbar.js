@@ -41,7 +41,7 @@ const Navbar = () => {
         <ul>
           <li>
             <IconButton disableRipple sx={{ padding: 0 }}>
-              <NavFavIcon color="secondary" />
+              <NavFavIcon color="tertiary" />
             </IconButton>
           </li>
           <li>
