@@ -18,6 +18,7 @@ const NumberInput = (props) => {
           }
         }}
       />
+      hi
     </div>
   );
 };
